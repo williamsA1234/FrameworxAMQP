@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Protocol>
+  <ShouldCloseCommAPIAfterErrors>true</ShouldCloseCommAPIAfterErrors>
+  <Description>AMQP Client Connector</Description>
+  <Group>ITCloud</Group>
+  <AssemblyName>T.ProtocolDriver.AMQP</AssemblyName>
+  <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  <CustomInterface>Custom</CustomInterface>
+  <AllowUserTypes>true</AllowUserTypes>
+  <UseLastArrayPosition>true</UseLastArrayPosition>
+  <Multiplatform>true</Multiplatform>
+  <EnableWriteGroup>true</EnableWriteGroup>
+  <EnableCheckingWorkItemAfterWriting>true</EnableCheckingWorkItemAfterWriting>
+  <AllowNoArrayIndexesForArray>true</AllowNoArrayIndexesForArray>
+  <TagProvider Enable="false" />
+  <ProtocolOptions>
+    <ProtocolOptions>
+      <KeyFields />
+      <Names P1="AmqpVersion" P2="TimePublishRate" P3="StoreAndForward" P4="PayloadFormat" />
+      <EditTypes P1="ComboBox=0-9-1;1.0;" P2="int" P3="CheckBox" P4="ComboBox=JSON;Raw;" />
+      <DefaultValues P1="0-9-1" P2="500" P3="false" P4="JSON" />
+      <EditModes P1="Enable" P2="Enable" P3="Enable" P4="Enable" />
+      <Hint P1="AMQP protocol version: 0-9-1 for RabbitMQ, 1.0 for Azure Service Bus/ActiveMQ/Solace" P2="Min interval between publish cycles in ms. Values below 50ms ignored" P3="Store-and-forward: queue messages when broker unreachable, send on reconnect" P4="Payload format: JSON (name/value/timestamp/quality) or Raw (value only)" />
+      <GridProperties G1="PopUpWidth" G2="PropertyColumnWidth" />
+      <GridValues G1="500" G2="200" />
+      <Format>Semicolon-separated: AmqpVersion;TimePublishRate;StoreAndForward;PayloadFormat</Format>
+      <Examples>
+        <Example Description="Default (AMQP 0-9-1, JSON)" Value="0-9-1;500;false;JSON" />
+        <Example Description="AMQP 1.0 with store-and-forward" Value="1.0;500;true;JSON" />
+        <Example Description="Raw payload" Value="0-9-1;500;false;Raw" />
+      </Examples>
+    </ProtocolOptions>
+  </ProtocolOptions>
+  <Settings AllowCustomTypes="false">
+    <Custom>
+      <EditModes P1="Hidden" P2="Hidden" P3="Hidden" />
+    </Custom>
+  </Settings>
+  <Station>
+    <Custom>
+      <Schema>
+        <KeyFields>BrokerURL,Port,UserName,Password</KeyFields>
+        <Names P1="BrokerURL" P2="Port" P3="VirtualHost" P4="ClientID" P5="UserName" P6="Password" P7="NetworkSecurity" P8="X509Certificate" P9="QoS" P10="KeepAlive" P11="Exchange" P12="ExchangeType" P13="ContainerID" />
+        <EditTypes P1="string" P2="int" P3="string" P4="string" P5="string" P6="string" P7="ComboBox=None;TLSv1.2;TLSv1.3;" P8="string" P9="ComboBox=AtMostOnce;AtLeastOnce;ExactlyOnce;" P10="int" P11="string" P12="ComboBox=topic;direct;fanout;headers;" P13="string" />
+        <DefaultValues P1="localhost" P2="5672" P3="/" P4="_SolutionName_-_Guid_" P5="" P6="" P7="None" P8="" P9="AtLeastOnce" P10="60" P11="amq.topic" P12="topic" P13="" />
+        <Hint P1="AMQP broker hostname or IP (e.g. localhost, 192.168.1.50)" P2="AMQP broker port (5672=standard, 5671=TLS)" P3="Virtual host (AMQP 0-9-1 only, default: /)" P4="Unique client ID. _SolutionName_-_Guid_ for auto-generated" P5="Broker authentication username (empty for anonymous)" P6="Broker authentication password" P7="TLS security: None, TLSv1.2, TLSv1.3" P8="Path to X.509 client certificate for mutual TLS" P9="QoS: AtMostOnce (no-ack), AtLeastOnce (ack), ExactlyOnce (transaction)" P10="Connection heartbeat interval in seconds" P11="Exchange name for AMQP 0-9-1 (e.g. amq.topic, amq.direct)" P12="Exchange type for AMQP 0-9-1: topic, direct, fanout, headers" P13="Container ID for AMQP 1.0 (empty for auto-generated)" />
+        <Format>Semicolon-separated: BrokerURL;Port;VirtualHost;ClientID;UserName;Password;NetworkSecurity;X509Certificate;QoS;KeepAlive;Exchange;ExchangeType;ContainerID</Format>
+        <Examples>
+          <Example Description="Local RabbitMQ (default)" Value="localhost;5672;/;_SolutionName_-_Guid_;;;None;;AtLeastOnce;60;amq.topic;topic;" />
+          <Example Description="RabbitMQ with auth" Value="localhost;5672;/;_SolutionName_-_Guid_;guest;guest;None;;AtLeastOnce;60;amq.topic;topic;" />
+          <Example Description="RabbitMQ with TLS" Value="rabbitmq.example.com;5671;/;_SolutionName_-_Guid_;user;pass;TLSv1.2;;AtLeastOnce;60;amq.topic;topic;" />
+          <Example Description="AMQP 1.0 broker" Value="amqp-broker.example.com;5672;/;_SolutionName_-_Guid_;user;pass;None;;AtLeastOnce;60;;;MyContainer" />
+        </Examples>
+      </Schema>
+    </Custom>
+  </Station>
+  <Points>
+    <Address AllowConfigDataType="false">
+      <Schema>
+        <KeyFields>Address</KeyFields>
+        <Names P1="Address" P2="RetainedMessage" />
+        <EditTypes P1="string" P2="CheckBox" />
+        <DefaultValues P1="routing.key" P2="false" />
+        <Hint P1="Routing key (0-9-1) or address/link name (1.0). Use dot notation e.g. plant.line1.temperature" P2="Request retained/durable message delivery from broker" />
+        <Format>Semicolon-separated: Address;RetainedMessage</Format>
+        <Examples>
+          <Example Description="Default" Value="routing.key;false" />
+          <Example Description="With retained" Value="plant.line1.temperature;true" />
+        </Examples>
+      </Schema>
+    </Address>
+  </Points>
+</Protocol>

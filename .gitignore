@@ -1,0 +1,27 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.vs/
+.vs/
+
+## NuGet
+packages/
+*.nupkg
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## IDE
+.idea/
+*.swp
+*~
+
+## OS
+Thumbs.db
+.DS_Store

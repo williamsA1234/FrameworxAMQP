@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyName>T.ProtocolDriver.AMQP</AssemblyName>
+    <RootNamespace>T.ProtocolDriver.AMQP</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <!-- AMQP 0-9-1 (RabbitMQ) -->
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+  </ItemGroup>
+
+  <!-- AMQP 1.0 -->
+  <ItemGroup>
+    <PackageReference Include="AMQPNetLite.Core" Version="2.4.11" />
+  </ItemGroup>
+
+  <!-- JSON serialization -->
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <!-- Config XML deployed alongside the DLL -->
+  <ItemGroup>
+    <Content Include="..\..\config\T.ProtocolDriver.AMQP.config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>T.ProtocolDriver.AMQP.config.xml</Link>
+    </Content>
+  </ItemGroup>
+
+  <!-- FrameworX references (not copied to output - already in FrameworX runtime) -->
+  <ItemGroup>
+    <Reference Include="T.Library">
+      <HintPath>..\..\lib\T.Library.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="T.ProtocolAPI">
+      <HintPath>..\..\lib\T.ProtocolAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
